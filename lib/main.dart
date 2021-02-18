@@ -10,6 +10,7 @@ void main (){
     @override
     Widget build(BuildContext context) {
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.blue),
       home: HomePage(), 
       title: "MI TITULO",

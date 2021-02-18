@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:flutter_myfirsapp_balcoder/ui/second_page.dart';
+import 'package:flutter_myfirsapp_balcoder/ui/user/user_form_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     print(_height);
     return Scaffold(
       appBar: AppBar(
-        title: Text("ESTE ES EL TITULO"),
+        title: Text("Home Page"),
       ),
       body: Container(
         child: Column(
@@ -51,14 +51,21 @@ class _HomePageState extends State<HomePage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_){
-                      return SecondPage();
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return UserFomPage(
+                        data: "ESTAMOS PASANDO UN STRING",
+                      );
                     }));
-
-
-
                   },
                   child: Container(
+                      child: Center(
+                          child: Text(
+                        "Form",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        ),
+                      )),
                       height: _height * 0.1,
                       width: _width * 0.1,
                       color: Colors.indigo),
