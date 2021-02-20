@@ -1,7 +1,6 @@
-import "package:flutter/material.dart";
-import 'package:flutter_myfirsapp_balcoder/ui/user/dashboard_widget.dart';
-import 'package:flutter_myfirsapp_balcoder/ui/user/model/usermodel.dart';
-import 'package:flutter_myfirsapp_balcoder/ui/user/user_form_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_myfirsapp_balcoder/ui/product/product_list_page.dart';
+import 'package:flutter_myfirsapp_balcoder/ui/user/user_list_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,62 +8,103 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String myName = "Mi nombre es:";
-  int count = 0;
-  double decimalnumber = 4.5;
-  bool myBool = true;
-  List<UserModel> _userList = [];
-
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
-
-    print(_width);
-    print(_height);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-      ),
+      appBar: AppBar(title: (Text("Home Page"))),
       body: Container(
-        child: Column(
-          children: [
-            Center(
-                child: Text(
-              count.toString(),
-              style: TextStyle(color: Colors.brown, fontSize: 28.0),
-            )),
-            DashboardWidget(count: _userList.length, title: "Usuarios"),
-            GestureDetector(
-              onTap: () {
-                print("ONTAP");
-                setState(() {
-                  myBool = !myBool;
-                });
-              },
-              child: Container(
-                  height: _height * 0.5,
-                  width: _width * 0.5,
-                  color: myBool
-                      ? Colors.grey[200]
-                      : count > 2
-                          ? Colors.blue
-                          : Colors.red),
+          child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) {
+                    return UserListPage();
+                  }));
+                },
+                child: Center(
+                  child: Container(
+                    width: _width * 0.4,
+                    height: _height * 0.1,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 15.0,
+                              offset: Offset(0.0, 0.75))
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Column(
+                      children: [
+                        Spacer(),
+                        Icon(
+                          Icons.account_box_rounded,
+                          color: Colors.white,
+                        ),
+                        Center(
+                            child: Text(
+                          "Usuarios",
+                          style: TextStyle(
+                              color: Colors.grey[300], fontSize: 18.0),
+                        )),
+                        Spacer(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return UserFomPage(
-              userList: _userList,
-            );
-          }));
-          setState(() {});
-        },
-        child: Icon(Icons.add),
-      ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) {
+                    return ProductListPage();
+                  }));
+                },
+                child: Center(
+                  child: Container(
+                    width: _width * 0.4,
+                    height: _height * 0.1,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 8.0,
+                              offset: Offset(0.0, 0.75))
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Column(
+                      children: [
+                        Spacer(),
+                        Icon(
+                          Icons.shopping_bag,
+                          color: Colors.white,
+                        ),
+                        Center(
+                            child: Text(
+                          "Productos",
+                          style: TextStyle(
+                              color: Colors.grey[300], fontSize: 18.0),
+                        )),
+                        Spacer(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      )),
     );
   }
 }
