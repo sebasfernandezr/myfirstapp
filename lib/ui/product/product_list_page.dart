@@ -6,13 +6,17 @@ import 'package:flutter_myfirsapp_balcoder/ui/user/dashboard_widget.dart';
 class ProductListPage extends StatefulWidget {
   
 
+  
+
   @override
   _ProductListPageState createState() => _ProductListPageState();
 }
 
 class _ProductListPageState extends State<ProductListPage> {
+  
   int count = 0;
   List<ProductModel> _productList = [];
+
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;

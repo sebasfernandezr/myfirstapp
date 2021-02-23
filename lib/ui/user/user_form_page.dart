@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_myfirsapp_balcoder/ui/user/model/usermodel.dart';
 
 class UserFomPage extends StatefulWidget {
-  UserFomPage({this.userList});
+  UserFomPage({this.userList, this.currentIndex});
+  int currentIndex;
 
-  List<UserModel>userList;
+  List<UserModel> userList;
 
   @override
   _UserFomPageState createState() => _UserFomPageState();
@@ -15,7 +16,15 @@ class _UserFomPageState extends State<UserFomPage> {
   TextEditingController _cPhoneNumber = TextEditingController();
   UserModel _userModel = new UserModel();
 
-  int currentIndex;
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.currentIndex != null) {
+      _cName.text=widget.userList[widget.currentIndex].name;
+      _cPhoneNumber.text=widget.userList[widget.currentIndex].phoneNumber.toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +65,10 @@ class _UserFomPageState extends State<UserFomPage> {
                   _userModel.name = _cName.text;
                   _userModel.phoneNumber = int.parse(_cPhoneNumber.text);
 
-                  if (currentIndex != null) {
+                  if (widget.currentIndex != null) {
                     //LA ACTUALIZACIÓN
                     setState(() {
-                      widget.userList[currentIndex] = _userModel;
+                      widget.userList[widget.currentIndex] = _userModel;
                     });
                   } else {
                     //LA CREACIÓN
@@ -72,13 +81,14 @@ class _UserFomPageState extends State<UserFomPage> {
                   _userModel = new UserModel();
                   _cName.text = "";
                   _cPhoneNumber.text = "";
-                  currentIndex = null;
+                  widget.currentIndex = null;
+                  Navigator.pop(context);
                 },
                 child: Container(
                   child: Center(
                       child: Text(
                     /*if terciario, si existe el botón actualiza si no, guarda*/
-                    currentIndex != null ? "Actualizar" : "Guardar",
+                    widget.currentIndex != null ? "Actualizar" : "Guardar",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w500),
                   )),
@@ -90,38 +100,6 @@ class _UserFomPageState extends State<UserFomPage> {
                 ),
               ),
             ),
-            Container(
-                width: _width * 0.9,
-                height: _height * 0.5,
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: ListView.builder(
-                    itemCount: widget.userList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                          onTap: () {
-                            //AL PRESIONAR EL USER, ASIGNA LAS VARIABLES A LOS CONTROLADORES
-                            setState(() {
-                              currentIndex = index;
-                              _cName.text = widget.userList[index].name;
-                              _cPhoneNumber.text =
-                                  widget.userList[index].phoneNumber.toString();
-                            });
-                          },
-                          leading: Icon(Icons.person),
-                          title: Text(widget.userList[index].name),
-                          subtitle:
-                              Text(widget.userList[index].phoneNumber.toString()),
-                          /*Eliminar*/
-                          trailing: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  widget.userList.removeAt(index);
-                                });
-                              },
-                              child: Icon(Icons.delete)));
-                    }))
           ],
         ),
       ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_myfirsapp_balcoder/ui/product/model/product_model.dart';
 
 class ProductFormPage extends StatefulWidget {
+ 
   ProductFormPage({this.productList});
-
   List<ProductModel> productList;
   @override
   _ProductFormPageState createState() => _ProductFormPageState();
